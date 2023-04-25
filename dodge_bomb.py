@@ -61,7 +61,7 @@ def main():
                 kk_rect.move_ip(mv)
             # 練習5
             if check_bound(screen.get_rect(), kk_rect) != (True, True):
-                    kk_rect.move_ip(-mv[0], -mv[1])
+                kk_rect.move_ip(-mv[0], -mv[1])
 
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, kk_rect)  # 練習4
@@ -72,6 +72,8 @@ def main():
         if not tate:  # 練習5 縦方向にはみ出ていたら
             vy *= -1
         screen.blit(bb_img, bb_rect)  # 練習3
+        if (kk_rect.colliderect(bb_rect)):  # 練習6
+            return
 
         pg.display.update()
         clock.tick(1000)
