@@ -5,11 +5,11 @@ import pygame as pg
 
 # 練習4
 delta = {
-    pg.K_UP: (0, -1),
-    pg.K_DOWN: (0, +1),
-    pg.K_LEFT: (-1, 0),
-    pg.K_RIGHT: (+1, 0)
-}
+        pg.K_UP: (0, -1),
+        pg.K_DOWN: (0, +1),
+        pg.K_LEFT: (-1, 0),
+        pg.K_RIGHT: (+1, 0)
+        }
 
 
 def check_bound(scr_rect: pg.Rect, obj_rect: pg.Rect) -> tuple[bool, bool]:
