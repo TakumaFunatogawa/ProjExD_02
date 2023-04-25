@@ -34,6 +34,17 @@ def main():
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
+    # 追加機能1
+    kk_img_dict = {
+        (0, -1): pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), 90.0, 1.0),
+        (+1, -1): pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), 45.0, 1.0),
+        (+1, 0): pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), 0.0, 1.0),
+        (+1, +1): pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), -45.0, 1.0),
+        (0, +1): pg.transform.rotozoom(pg.transform.flip(kk_img, True, False), -90.0, 1.0),
+        (-1, -1): pg.transform.rotozoom(kk_img, -45.0, 1.0),
+        (-1, 0): pg.transform.rotozoom(kk_img, 0.0, 1.0),
+        (-1, +1): pg.transform.rotozoom(kk_img, 45.0, 1.0)
+    }
     kk_rect = kk_img.get_rect()  # 練習4
     kk_rect.center = 900, 400  # 練習4
 
@@ -53,15 +64,22 @@ def main():
                 return 0
 
         tmr += 1
-
+        total_mvx, total_mvy = 0, 0
         # 練習4
         key_list = pg.key.get_pressed()
         for k, mv in delta.items():
             if key_list[k]:
                 kk_rect.move_ip(mv)
+                total_mvx += mv[0]  # 追加機能1
+                total_mvy += mv[1]  # 追加機能1
             # 練習5
             if check_bound(screen.get_rect(), kk_rect) != (True, True):
                 kk_rect.move_ip(-mv[0], -mv[1])
+
+        # 追加機能1
+        for mvk, img in kk_img_dict.items():
+            if (mvk == (total_mvx, total_mvy)):
+                kk_img = img
 
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, kk_rect)  # 練習4
