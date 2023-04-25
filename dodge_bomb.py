@@ -10,11 +10,15 @@ def main():
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
+    
     bb_img = pg.Surface((20, 20))  # 練習1
     pg.draw.circle(bb_img, (255, 0, 0), (10, 10), 10)  # 練習1
     bb_img.set_colorkey((0, 0, 0))  # 練習1
     x, y = random.randint(0, 1600), random.randint(0, 900)  # 練習2
-    screen.blit(bb_img, [x, y])  # 練習2
+    # screen.blit(bb_img, [x, y])  # 練習2
+    vx, vy = +1, +1
+    bb_rect = bb_img.get_rect()
+    bb_rect.center = x, y
     tmr = 0
 
     while True:
@@ -25,7 +29,8 @@ def main():
         tmr += 1
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, [900, 400])
-        screen.blit(bb_img, [x, y])
+        bb_rect.move_ip(vx, vy)
+        screen.blit(bb_img, bb_rect)
 
         pg.display.update()
         clock.tick(1000)
